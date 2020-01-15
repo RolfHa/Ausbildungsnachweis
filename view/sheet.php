@@ -119,7 +119,7 @@ if($_REQUEST) {
                         <tr style="border-top:2px solid black;">
                             <td width="54%" style="padding-bottom: 15px; position: relative;">
                                 <strong>Besondere Bemerkungen</strong> Auszubildender
-                                <input style="position: absolute;top: 17px;left: 0;" type="text" name="data[document][notice]" value="Notice">
+                                <input id="notice" style="position: absolute;top: 17px;left: 0;" type="text" name="data[document][notice]" value="Notice">
                             </td>
                             <td width="46%" style="padding-bottom: 15px">Ausbildender bzw. Ausbilder</td>
                         </tr>
