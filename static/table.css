@@ -41,6 +41,7 @@ td {
 }
 
 input[type="text"],
+input[type="number"],
 .line-spacer {
     border:none;
     outline: none;
@@ -51,7 +52,7 @@ input[type="text"],
     height: 12px;
 }
 
-input[type="text"].hoursOverall {
+input.totalHours {
     font-size: 30px;
     text-align: center;
     width: 80px;
@@ -81,9 +82,13 @@ input[type="text"].hoursOverall {
     left: 350px;
     width: 70px;
 }
-.area-department {
-    left: 510px;
-    width: 180px;
+
+.select-department {
+    position: absolute;
+    top: 39px;
+    left: 508px;
+    width: 187px;
+    border: none;
 }
 
 .label {
