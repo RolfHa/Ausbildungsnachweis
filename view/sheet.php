@@ -7,12 +7,12 @@ if($_REQUEST) {
     </pre>
 
 <form id="sheetForm" action="?" method="post">
-    <input type="hidden" name="data[document][user]" value="user_id">
+    <input type="hidden" name="data[document][userId]" value="14">
+    <input type="hidden" name="data[document][userFirstname]" value="John">
+    <input type="hidden" name="data[document][userLastname]" value="Doe">
     <input type="hidden" name="data[document][year]" value="2020">
     <input type="hidden" name="data[document][number]" value="12">
-    <input type="hidden" name="data[document][start]" value="10.12.2019">
-    <input type="hidden" name="data[document][end]" value="17.12.2019">
-
+    <input type="hidden" name="data[document][start]" value="2019-12-10">
 
     <div style="width: 700px">
 
@@ -29,7 +29,7 @@ if($_REQUEST) {
             <tr>
                 <td colspan="2"></td>
                 <td>Name</td>
-                <td colspan="4" style="border-bottom: 1px solid black">Marco Senkpiel</td>
+                <td colspan="4" style="border-bottom: 1px solid black">John Doe</td>
             </tr>
             <tr>
                 <td><strong>Ausbildungnachweis Nr:</strong></td>
@@ -59,11 +59,16 @@ if($_REQUEST) {
                         <div class="label"><?= $weekdays[$i] ?></div>
                         <textarea name="data[sheet][description][]" class="area area-description"><?= $data[$i]['description'] ?></textarea>
                         <textarea name="data[sheet][hours][]" class="area area-hours"><?= $data[$i]['hours'] ?></textarea>
-                        <select name="data[sheet][department][]" class="select-department">
+                        <select name="data[sheet][department][]" class="select-department no-print">
                             <?php for ($dep = 0; $dep < count($departments); $dep++) : ?>
                                 <option value="<?= $dep+1 ?>" <?= ($data[$i]['department'] == $dep+1) ? 'selected="selected"' : '' ?>><?= $departments[$dep] ?></option>
                             <?php endfor; ?>
                         </select>
+                        <?php for ($dep = 0; $dep < count($departments); $dep++) : ?>
+                            <?php if($data[$i]['department'] == $dep+1) : ?>
+                                <div style="padding: 0 5px" class="select-department print"><?= $departments[$dep] ?></div>
+                            <?php endif; ?>
+                        <?php endfor; ?>
                     </td>
                     <td><div class="line-spacer"></div></td>
                     <td><div class="line-spacer"></div></td>

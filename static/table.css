@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.print {
+    display: none;
+}
+
 body {
     margin:0;
     padding: 10px;
@@ -75,7 +79,7 @@ input.totalHours {
     border: none;
     overflow: hidden;
     resize: none;
-    font: inherit;
+    font-family: sans-serif;
     outline: none;
 }
 .area-hours {
@@ -116,4 +120,14 @@ input.totalHours {
 #headTable td {
     border: none;
     padding: 15px 5px 0;
+}
+
+@media print {
+    .print {
+        display: block;
+    }
+
+    .no-print {
+        display: none;
+    }
 }
