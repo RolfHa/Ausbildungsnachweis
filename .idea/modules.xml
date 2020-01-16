@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Ausbildungsnachweis.iml" filepath="$PROJECT_DIR$/.idea/Ausbildungsnachweis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/edu_documentation.iml" filepath="$PROJECT_DIR$/.idea/edu_documentation.iml" />
     </modules>
   </component>
 </project>
