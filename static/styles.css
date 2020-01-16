@@ -40,7 +40,7 @@ td {
     height: 15px;
 }
 
-input[type="text"],
+input#notice,
 input[type="number"],
 .line-spacer {
     border: none;
@@ -123,6 +123,37 @@ input.totalHours {
     padding: 15px 5px 0;
 }
 
+/* LOGIN WINDOW */
+.login-window {
+    margin: 100px auto 0;
+    width: 350px;
+    padding: 50px;
+    background-color: #efefef;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.login-window .field-wrapper {
+    padding: 5px 0;
+}
+
+.login-window .error {
+    padding: 10px;
+    background-color: #ffd3cf;
+    color: #f00;
+    border: 1px solid #f00;
+    margin-bottom: 10px;
+}
+
+.login-window input.field {
+    float: right;
+}
+
+.login-window input.button {
+    float: right;
+}
+
 
 /* PRINT STYLES */
 .print {
@@ -137,4 +168,15 @@ input.totalHours {
     .no-print {
         display: none;
     }
+}
+
+/* CLEARFIX */
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
 }

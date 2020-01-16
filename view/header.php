@@ -3,6 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Ausbildungsnachweis</title>
-    <link rel="stylesheet" href="static/table.css">
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
