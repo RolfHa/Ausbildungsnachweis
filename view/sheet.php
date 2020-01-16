@@ -1,12 +1,40 @@
-<pre>
 <?php
-if($_REQUEST) {
-    print_r($_REQUEST);
+
+$departmentList = [
+    [
+        'id' => 1,
+        'name' => 'Modul 1'
+    ],[
+        'id' => 2,
+        'name' => 'Modul 2'
+    ],[
+        'id' => 3,
+        'name' => 'Modul 3'
+    ],[
+        'id' => 4,
+        'name' => 'Modul 4'
+    ],[
+        'id' => 5,
+        'name' => 'Modul 5'
+    ]
+];
+
+if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update') {
+
+    $documentData = $_REQUEST['data']['document'];
+    $sheetData = $_REQUEST['data']['sheet'];
+
+    for ($i = 0; $i < count($sheetData['description']); $i++) {
+        $data[$i]['description'] = $sheetData['description'][$i];
+        $data[$i]['hours'] = $sheetData['hours'][$i];
+        $data[$i]['department'] = $sheetData['department'][$i];
+        $data[$i]['totalHours'] = $sheetData['totalHours'][$i];
+    }
 }
 ?>
-    </pre>
 
 <form id="sheetForm" action="?" method="post">
+    <input type="hidden" name="action" value="update">
     <input type="hidden" name="data[document][userId]" value="14">
     <input type="hidden" name="data[document][userFirstname]" value="John">
     <input type="hidden" name="data[document][userLastname]" value="Doe">
@@ -53,20 +81,20 @@ if($_REQUEST) {
                 <th width="28%">Ausbildungs-Abteilung</th>
             </tr>
 
-            <?php for ($i = 0; $i < count($data); $i++) : ?>
-                <tr class="section">
+            <?php for ($i = 0; $i < count($data['sheet']); $i++) : ?>
+                <tr data-day-id="<?= $i+1 ?>" class="section">
                     <td rowspan="6" class="labelWrapper">
-                        <div class="label"><?= $weekdays[$i] ?></div>
-                        <textarea name="data[sheet][description][]" class="area area-description"><?= $data[$i]['description'] ?></textarea>
-                        <textarea name="data[sheet][hours][]" class="area area-hours"><?= $data[$i]['hours'] ?></textarea>
+                        <div class="label"><?= FrontendUtils::getGermanDayName($i) ?></div>
+                        <textarea name="data[sheet][description][]" class="area area-description"><?= $data['sheet'][$i]['description'] ?></textarea>
+                        <textarea name="data[sheet][hours][]" class="area area-hours"><?= $data['sheet'][$i]['hours'] ?></textarea>
                         <select name="data[sheet][department][]" class="select-department no-print">
-                            <?php for ($dep = 0; $dep < count($departments); $dep++) : ?>
-                                <option value="<?= $dep+1 ?>" <?= ($data[$i]['department'] == $dep+1) ? 'selected="selected"' : '' ?>><?= $departments[$dep] ?></option>
+                            <?php for ($k = 0; $k < count($departmentList); $k++) : ?>
+                                <option value="<?= $departmentList[$k]['id'] ?>" <?= ($data['sheet'][$i]['department'] == $departmentList[$k]['id']) ? 'selected="selected"' : '' ?>><?= $departmentList[$k]['name'] ?></option>
                             <?php endfor; ?>
                         </select>
-                        <?php for ($dep = 0; $dep < count($departments); $dep++) : ?>
-                            <?php if($data[$i]['department'] == $dep+1) : ?>
-                                <div style="padding: 0 5px" class="select-department print"><?= $departments[$dep] ?></div>
+                        <?php for ($k = 0; $k < count($departmentList); $k++) : ?>
+                            <?php if($data[$i]['department'] == $departmentList[$k]['id']) : ?>
+                                <div style="padding: 0 5px" class="select-department print"><?= $departmentList[$k]['name'] ?></div>
                             <?php endif; ?>
                         <?php endfor; ?>
                     </td>
@@ -119,7 +147,7 @@ if($_REQUEST) {
                         <tr style="border-top:2px solid black;">
                             <td width="54%" style="padding-bottom: 15px; position: relative;">
                                 <strong>Besondere Bemerkungen</strong> Auszubildender
-                                <input id="notice" style="position: absolute;top: 17px;left: 0;" type="text" name="data[document][notice]" value="Notice">
+                                <input id="notice" style="position: absolute;top: 17px;left: 0;" type="text" name="data[document][notice]" value="<?= $documentData['notice'] ?>">
                             </td>
                             <td width="46%" style="padding-bottom: 15px">Ausbildender bzw. Ausbilder</td>
                         </tr>
