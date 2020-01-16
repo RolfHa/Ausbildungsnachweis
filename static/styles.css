@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+}
+
+table {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th {
+    border: 2px solid black;
+    border-bottom: none;
+    text-align: left;
+    vertical-align: top;
+    padding: 5px 25px 5px 2px;
+}
+
+tr.section {
+    border-top: 2px solid black;
+}
+
+tr.last {
+    border-bottom: 2px solid black;
+}
+
+
+td {
+    border-style: solid;
+    border-color: black;
+    border-width: 0 2px 1px;
+    height: 15px;
+}
+
+input#notice,
+input[type="number"],
+.line-spacer {
+    border: none;
+    outline: none;
+    padding: 2px;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+    height: 12px;
+}
+
+input.totalHours {
+    font-size: 30px;
+    text-align: center;
+    width: 80px;
+    height: 30px;
+}
+
+.labelWrapper {
+    position: relative;
+    vertical-align: bottom;
+}
+
+.area {
+    position: absolute;
+    top: -2px;
+    left: 70px;
+    width: 270px;
+    height: 115px;
+    background: none;
+    line-height: 19px !important;
+    border: none;
+    overflow: hidden;
+    resize: none;
+    font-family: sans-serif;
+    outline: none;
+}
+
+.area.marked {
+    font-style: italic;
+    color: #aaaaaa;
+}
+
+.area-hours {
+    left: 350px;
+    width: 70px;
+}
+
+.select-department {
+    position: absolute;
+    top: 39px;
+    left: 508px;
+    width: 187px;
+    border: none;
+}
+
+.label {
+    font-weight: bold;
+    transform: rotate(270deg);
+    transform-origin: 0 0;
+    position: absolute;
+    width: 123px;
+    text-align: center;
+    left: 5px;
+}
+
+.no-border,
+.no-border td {
+    border: none;
+
+}
+
+#headTable {
+    width: 100%;
+    border: none;
+}
+
+#headTable td {
+    border: none;
+    padding: 15px 5px 0;
+}
+
+/* LOGIN WINDOW */
+.login-window {
+    margin: 100px auto 0;
+    width: 350px;
+    padding: 50px;
+    background-color: #efefef;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.login-window .field-wrapper {
+    padding: 5px 0;
+}
+
+.login-window .error {
+    padding: 10px;
+    background-color: #ffd3cf;
+    color: #f00;
+    border: 1px solid #f00;
+    margin-bottom: 10px;
+}
+
+.login-window input.field {
+    float: right;
+}
+
+.login-window input.button {
+    float: right;
+}
+
+
+/* PRINT STYLES */
+.print {
+    display: none;
+}
+
+@media print {
+    .print {
+        display: block;
+    }
+
+    .no-print {
+        display: none;
+    }
+}
+
+/* CLEARFIX */
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
