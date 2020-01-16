@@ -18,6 +18,9 @@ $departmentList = [
     ],[
         'id' => 5,
         'name' => 'Modul 5'
+    ],[
+        'id' => 0,
+        'name' => '*ABWESEND*'
     ]
 ];
 

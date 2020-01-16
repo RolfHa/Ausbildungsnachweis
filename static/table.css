@@ -2,12 +2,8 @@
     box-sizing: border-box;
 }
 
-.print {
-    display: none;
-}
-
 body {
-    margin:0;
+    margin: 0;
     padding: 10px;
     font-size: 14px;
 }
@@ -47,12 +43,12 @@ td {
 input[type="text"],
 input[type="number"],
 .line-spacer {
-    border:none;
+    border: none;
     outline: none;
     padding: 2px;
     margin: 0;
     display: inline-block;
-    width:100%;
+    width: 100%;
     height: 12px;
 }
 
@@ -82,6 +78,12 @@ input.totalHours {
     font-family: sans-serif;
     outline: none;
 }
+
+.area.marked {
+    font-style: italic;
+    color: #aaaaaa;
+}
+
 .area-hours {
     left: 350px;
     width: 70px;
@@ -107,19 +109,24 @@ input.totalHours {
 
 .no-border,
 .no-border td {
-    border:none;
+    border: none;
 
 }
 
-
 #headTable {
     width: 100%;
-    border:none;
+    border: none;
 }
 
 #headTable td {
     border: none;
     padding: 15px 5px 0;
+}
+
+
+/* PRINT STYLES */
+.print {
+    display: none;
 }
 
 @media print {

@@ -47,10 +47,12 @@
             </tr>
 
             <?php for ($i = 0; $i < count($data['sheet']); $i++) : ?>
+                <input type="hidden" name="data[sheet][<?= $i ?>][id]" value="">
+                <input type="hidden" name="data[sheet][<?= $i ?>][date]" value="">
                 <tr data-day-id="<?= $i+1 ?>" class="section">
                     <td rowspan="6" class="labelWrapper">
                         <div class="label"><?= FrontendUtils::getGermanDayName($i) ?></div>
-                        <textarea name="data[sheet][<?= $i ?>][description]" class="area area-description"><?= $data['sheet'][$i]['description'] ?></textarea>
+                        <textarea name="data[sheet][<?= $i ?>][description]" class="area area-description <?= ($data['sheet'][$i]['department'] == 0) ? 'marked':'' ?>"><?= $data['sheet'][$i]['description'] ?></textarea>
                         <textarea name="data[sheet][<?= $i ?>][hours]" class="area area-hours"><?= $data['sheet'][$i]['hours'] ?></textarea>
                         <select name="data[sheet][<?= $i ?>][department]" class="select-department no-print">
                             <?php for ($k = 0; $k < count($departmentList); $k++) : ?>

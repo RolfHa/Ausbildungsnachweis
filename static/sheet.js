@@ -4,6 +4,7 @@ App.run = function () {
 
     const inputs = document.querySelectorAll(['input[type=number]','input[type=text]','textarea', 'select']);
     const sheetForm = document.getElementById('sheetForm');
+    const overallHours = document.getElementById('overallHours');
     const totalHoursInputList = document.querySelectorAll('input.totalHours');
 
     inputs.forEach((element) => {
@@ -23,6 +24,7 @@ App.run = function () {
             hours += parseInt(val);
         }
     });
+
     overallHours.innerText = hours.toString();
 };
 
