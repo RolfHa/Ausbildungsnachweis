@@ -10,13 +10,10 @@ class Db
         if (!isset(self::$pdo)) {
             try {
                 self::$pdo = new PDO("mysql:host=" . HOST . ";dbname=" . DB_NAME, USER, PWD);
-            } catch
-            (Exception $e) {
-
-                file . file_put_contents('error.log', var_export($e, true) . "\n" . file_get_contents('error.log'));
-
-                throw new Exception('DB ist down');
-                echo 'DB hat keine Verbindung';
+            } catch (Exception $e) {
+                $file = __DIR__ . "/../var/error.log";
+                file_put_contents($file, var_export($e, true) . "\n" . file_get_contents($file));
+                die('DB hat keine Verbindung');
             }
         }
 
