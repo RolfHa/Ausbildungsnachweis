@@ -23,6 +23,9 @@ $departmentList = [
     ]
 ];
 
+/* TODO
+Department::getAll();
+*/
 
 $data = [
     'document' => [
