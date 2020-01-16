@@ -1,5 +1,4 @@
 <?php
-ini_set('xdebug.var_display_max_depth', '10');
 require_once __DIR__ . "/../class/FrontendUtils.php";
 
 $departmentList = [
@@ -79,8 +78,6 @@ $data = [
 
 
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update') {
-
-    var_dump($_REQUEST);
     $data = $_REQUEST['data'];
 }
 

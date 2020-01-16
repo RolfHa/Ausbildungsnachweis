@@ -1,3 +1,11 @@
+<nav id="main" class="no-print">
+    <button>Vorherige Woche</button>
+    <label for="fieldWeek">Woche vom:</label>
+    <input id="fieldWeek" type="date" name="week" value="<?= date('Y-m-d') ?>">
+    <button>Nächste Woche</button>
+    <button onclick="App.logout();">Logout</button>
+</nav>
+
 <form id="sheetForm" action="?" method="post">
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="data[document][userId]" value="14">
@@ -7,7 +15,7 @@
     <input type="hidden" name="data[document][number]" value="12">
     <input type="hidden" name="data[document][start]" value="2019-12-10">
 
-    <div style="width: 700px">
+    <div style="width: 700px; margin: 0 auto;">
 
         <table id="headTable">
             <tr>
@@ -22,7 +30,7 @@
             <tr>
                 <td colspan="2"></td>
                 <td>Name</td>
-                <td colspan="4" style="border-bottom: 1px solid black">John Doe</td>
+                <td colspan="4" style="border-bottom: 1px solid black"><?= FrontendUtils::getUserFullName() ?></td>
             </tr>
             <tr>
                 <td><strong>Ausbildungnachweis Nr:</strong></td>
