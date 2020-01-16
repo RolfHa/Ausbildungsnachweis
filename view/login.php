@@ -11,7 +11,7 @@ if(isset($_REQUEST) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'log
             'lastname' => 'Doe',
             'education_start' => '2019-03-01'
         ];
-        header("location:_index.php");
+        header("location:index.php");
     } else {
         $error = 'Benutzer oder Passwort falsch!';
     }
