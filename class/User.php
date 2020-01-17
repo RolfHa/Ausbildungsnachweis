@@ -66,35 +66,32 @@ class User implements Saveable
         return $this->education_start_date;
     }
 
-
-    static function getAll()
-    {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM user";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo');
-    }
-
-    static function getById($id)
-    {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM user WHERE id=$id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo')[0];
-    }
-
-    public static function buildFromPdo($id, $firstName, $lastName, $passWord, $education_start_date)
-    {
-        return new User($id, $firstName, $lastName, $passWord, $education_start_date);
-    }
-
-    public static function delete($id)
-    {
-    }
-
     function save()
     {
     }
+
+    static function getAllAsArray()
+    {
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM user";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
+    }
+
+    static function getByIdAsArray($id)
+    {
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM user WHERE id=$id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
+    }
+
 }

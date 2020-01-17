@@ -25,7 +25,7 @@ class Notice implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -33,7 +33,7 @@ class Notice implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getUserId()
     {
@@ -41,7 +41,7 @@ class Notice implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNoticeDate()
     {
@@ -49,7 +49,7 @@ class Notice implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNotice()
     {
@@ -77,37 +77,35 @@ class Notice implements Saveable
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(':notice', $this->notice, PDO::PARAM_STR);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-                $result=$stmt->execute();
+                $result = $stmt->execute();
             } catch (Exception $e) {
             }
         }
-        return$result;
+        return $result;
     }
 
-    static function getAll()
+    static function getAllAsArray()
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM notice";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Notice::buildFromPdo');
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM notice";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
     }
 
-    static function getById($id)
+    static function getByIdAsArray($id)
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM notice WHERE id=$id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Notice::buildFromPdo');
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM notice WHERE id=$id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
     }
 
-    public static function buildFromPdo($id, $user_id, $notice_date, $notice)
-    {
-        return new Notice($id, $user_id, $notice_date, $notice);
-    }
-
-    static function delete($id)
-    {
-    }
 }

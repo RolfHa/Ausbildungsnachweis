@@ -1,7 +1,7 @@
 <?php
 
 
-class Department implements Saveable
+class Department
 {
 
     private $id; //PK
@@ -19,7 +19,7 @@ class Department implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -27,43 +27,41 @@ class Department implements Saveable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
 
-
     function save()
     {
     }
 
-    static function getAll()
+    static function getAllAsArray()
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM department";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo');
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM department ORDER  BY name REGEXP '^[a-z]' DESC , name "; //ABWESEND am Ende
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
     }
 
-    static function getById($id)
+    static function getByIdAsArray($id)
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM department WHERE id=$id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo')[0];
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM department WHERE id=$id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt;
+        } catch (Exception $e) {
+        }
     }
 
-    public static function buildFromPdo($id, $name)
-    {
-        return new Department($name, $id);
-    }
-
-    static function delete($id)
-    {
-    }
 
 }

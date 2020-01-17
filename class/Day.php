@@ -1,7 +1,7 @@
 <?php
 
 
-class Day
+class Day implements Saveable
 {
 
     private $id; //PK
@@ -50,7 +50,7 @@ class Day
     }
 
     /**
-     * @return
+     * @return string
      */
     public function getDateOfDay()
     {
@@ -58,7 +58,7 @@ class Day
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getDescription()
     {
@@ -66,7 +66,7 @@ class Day
     }
 
     /**
-     * @return String
+     * @return int
      */
     public function getHours()
     {
@@ -82,7 +82,7 @@ class Day
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getDepartmentId()
     {
@@ -123,30 +123,28 @@ class Day
         return $result;
     }
 
-    static function getAll()
+    static function getAllAsArray()
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM day";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo');
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM day";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
     }
 
-    static function getById($id)
+    static function getByIdAsArray($id)
     {
-        $pdo = Db::connect();
-        $sql = "SELECT * FROM day WHERE id=$id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo');
+        try {
+            $pdo = Db::connect();
+            $sql = "SELECT * FROM day WHERE id=$id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+        }
     }
 
-    public static function buildFromPdo($id, $user_id, $date_of_day, $description, $hours, $totalHours, $department_id)
-    {
-        return new Day($id, $user_id, $date_of_day, $description, $hours, $totalHours, $department_id);
-    }
-
-    static function delete($id)
-    {
-    }
 }
