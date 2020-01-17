@@ -4,10 +4,11 @@ spl_autoload_register(function ($class) {
     include 'class/' . $class . '.php';
 });
 
-/*var_dump($freitag = new Notice(4, 4, '2020-01.05', 'heute ziehe ich mit den beiden Monstern zu Sascha und bleibe bis ende märz'));
-$freitag->save();*/
+$view = "view/login.php";
+if(isset($_SESSION) && isset($_SESSION['auth']) && $_SESSION['auth'] === true){
+    $view = "view/sheet.php";
+}
 
-var_dump(Department::getAllAsArray());
-
-
-
+include "view/header.php";
+include $view;
+include "view/footer.php";

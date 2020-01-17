@@ -4,8 +4,14 @@
 
 body {
     margin: 0;
-    padding: 10px;
+    padding-bottom: 10px;
     font-size: 14px;
+}
+
+nav#main {
+    background-color: #efefef;
+    text-align: center;
+    padding: 10px;
 }
 
 table {
