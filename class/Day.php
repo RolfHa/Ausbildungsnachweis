@@ -123,28 +123,33 @@ class Day implements Saveable
         return $result;
     }
 
-    static function getAllAsArray()
+    static function getAll()
     {
         try {
             $pdo = Db::connect();
             $sql = "SELECT * FROM day";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo');
         } catch (Exception $e) {
         }
     }
 
-    static function getByIdAsArray($id)
+    static function getById($id)
     {
         try {
             $pdo = Db::connect();
             $sql = "SELECT * FROM day WHERE id=$id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo')[0];
         } catch (Exception $e) {
         }
+    }
+
+    public static function buildFromPdo($id, $user_id, $date_of_day, $description, $hours, $totalHours, $department_id)
+    {
+        return new Day($id, $user_id, $date_of_day, $description, $hours, $totalHours, $department_id);
     }
 
 }
