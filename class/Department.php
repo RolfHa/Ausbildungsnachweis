@@ -1,7 +1,7 @@
 <?php
 
 
-class Department
+class Department implements Saveable
 {
 
     private $id; //PK
@@ -38,29 +38,33 @@ class Department
     {
     }
 
-    static function getAllAsArray()
+    static function getAll()
     {
         try {
             $pdo = Db::connect();
             $sql = "SELECT * FROM department ORDER  BY name REGEXP '^[a-z]' DESC , name "; //ABWESEND am Ende
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo');
         } catch (Exception $e) {
         }
     }
 
-    static function getByIdAsArray($id)
+    static function getById($id)
     {
         try {
             $pdo = Db::connect();
             $sql = "SELECT * FROM department WHERE id=$id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $stmt;
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo')[0];
         } catch (Exception $e) {
         }
+    }
+
+    public static function buildFromPdo($id, $name)
+    {
+        return new Department($id, $name);
     }
 
 
