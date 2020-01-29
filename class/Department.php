@@ -54,9 +54,8 @@ class Department implements Saveable
     {
         try {
             $pdo = Db::connect();
-            $sql = "SELECT * FROM department WHERE id=$id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt = $pdo->prepare("SELECT * FROM department WHERE id = ?");
+            $stmt->execute([$id]);
             return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo')[0];
         } catch (Exception $e) {
         }

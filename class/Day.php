@@ -139,9 +139,8 @@ class Day implements Saveable
     {
         try {
             $pdo = Db::connect();
-            $sql = "SELECT * FROM day WHERE id=$id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt = $pdo->prepare("SELECT * FROM day WHERE id = ?");
+            $stmt->execute([$id]);
             return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo')[0];
         } catch (Exception $e) {
         }

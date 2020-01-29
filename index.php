@@ -12,4 +12,3 @@ if(isset($_SESSION) && isset($_SESSION['auth']) && $_SESSION['auth'] === true){
 include "view/header.php";
 include $view;
 include "view/footer.php";
-
