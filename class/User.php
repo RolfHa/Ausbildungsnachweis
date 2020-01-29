@@ -70,6 +70,19 @@ class User implements Saveable
     {
     }
 
+    static function getByLastName($lastName)
+    {
+        try {
+            $pdo = Db::connect();
+            $stmt = $pdo->prepare("SELECT * FROM user WHERE lastName = ?");
+            $stmt->execute([$lastName]);
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo')[0];
+
+
+        } catch (Exception $e) {
+        }
+    }
+
 
     static function getAll()
     {
@@ -87,13 +100,13 @@ class User implements Saveable
     {
         try {
             $pdo = Db::connect();
-            $sql = "SELECT * FROM user WHERE id=$id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt = $pdo->prepare("SELECT * FROM user WHERE id = ?");
+            $stmt->execute([$id]);
             return $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo')[0];
         } catch (Exception $e) {
         }
     }
+
     public static function buildFromPdo($id, $firstName, $lastName, $passWord, $education_start_date)
     {
         return new User($id, $firstName, $lastName, $passWord, $education_start_date);
