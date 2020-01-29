@@ -16,5 +16,3 @@ if(isset($_REQUEST) && isset($_REQUEST['action']) && $_REQUEST['action'] == 'log
         $error = 'Benutzer oder Passwort falsch!';
     }
 }
-
-include "view/login.html.php";

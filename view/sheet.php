@@ -23,10 +23,6 @@ $departmentList = [
     ]
 ];
 
-/* TODO
-Department::getAll();
-*/
-
 $data = [
     'document' => [
         'user' => [
@@ -79,6 +75,7 @@ $data = [
     ]
 ];
 
+//$data = Department::getAllAsArray();
 
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update') {
     $data = $_REQUEST['data'];
