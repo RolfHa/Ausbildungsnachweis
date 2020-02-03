@@ -1,35 +1,72 @@
 <?php
 
-
+/**
+ * Class FrontendUtils
+ */
 class FrontendUtils
 {
+    /**
+     * @var array
+     */
     private static $days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
-    static function getGermanDayName($i) {
+    /**
+     * @param $i
+     * @return mixed
+     */
+    static function getGermanDayName($i)
+    {
         return self::$days[$i];
     }
 
-    static function getUserId() {
-        return $_SESSION['user']['id'];
+    /**
+     * @return User|null
+     */
+    static function getUserObjFromSession()
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user'] instanceof User) {
+            return $_SESSION['user'];
+        }
+        return null;
     }
 
-    static function getUserFirstname() {
-        return $_SESSION['user']['firstname'];
+    /**
+     * @return string
+     */
+    static function getUserFullName()
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            return $u->getFirstName() . ' ' . $u->getLastName();
+        }
+        return '';
     }
 
-    static function getUserLastname() {
-        return $_SESSION['user']['lastname'];
-    }
-
-    static function getUserFullName() {
-        return self::getUserFirstname() . ' ' . self::getUserLastname();
+    /**
+     * @return int|mixed
+     */
+    static function getUserId()
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            return $u->getId();
+        }
+        return -1;
     }
 
     /**
      * @return false|string
      */
-    static function getUserEducationStartDate() {
-        return date("d.m.Y", strtotime($_SESSION['user']['education_start']));
+    static function getUserEducationStartDate()
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            return date("d.m.Y", strtotime($u->getEducationStartDate()));
+        }
 
+        return '';
     }
 }
