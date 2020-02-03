@@ -33,14 +33,35 @@ class FrontendUtils
     /**
      * @return string
      */
-    static function getUserFullName()
+    static function getUserFirstName()
     {
         /** @var User $u */
         $u = self::getUserObjFromSession();
         if ($u instanceof User) {
-            return $u->getFirstName() . ' ' . $u->getLastName();
+            return $u->getFirstName();
         }
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    static function getUserLastName()
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            return $u->getLastName();
+        }
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    static function getUserFullName()
+    {
+        return self::getUserFirstName() . ' ' . self::getUserLastName();
     }
 
     /**
@@ -68,5 +89,23 @@ class FrontendUtils
         }
 
         return '';
+    }
+
+    /**
+     * @return int
+     */
+    static function getUserSheetNumber()
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            $today = date_create();
+            $start = date_create($u->getEducationStartDate());
+            $interval = $today->diff($start);
+
+            return floor(intval($interval->format('%a')) / 7);
+        }
+
+        return -1;
     }
 }
