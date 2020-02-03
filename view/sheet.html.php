@@ -8,12 +8,8 @@
 
 <form id="sheetForm" action="?" method="post">
     <input type="hidden" name="action" value="update">
-    <input type="hidden" name="data[document][userId]" value="14">
-    <input type="hidden" name="data[document][userFirstname]" value="John">
-    <input type="hidden" name="data[document][userLastname]" value="Doe">
-    <input type="hidden" name="data[document][year]" value="2020">
-    <input type="hidden" name="data[document][number]" value="12">
-    <input type="hidden" name="data[document][start]" value="2019-12-10">
+    <input type="hidden" name="data[document][userId]" value="<?= FrontendUtils::getUserId() ?>">
+    <input type="hidden" name="data[document][start]" value="<?= FrontendUtils::getUserEducationStartDate() ?>">
 
     <div style="width: 700px; margin: 0 auto;">
 
@@ -34,14 +30,14 @@
             </tr>
             <tr>
                 <td><strong>Ausbildungnachweis Nr:</strong></td>
-                <td style="border-bottom: 1px solid black;">12</td>
+                <td style="border-bottom: 1px solid black;"><?= FrontendUtils::getUserSheetNumber() ?></td>
                 <td colspan="2">Für die Woche vom</td>
                 <td style="border-bottom: 1px solid black;">10.12.2020</td>
                 <td>bis</td>
                 <td style="border-bottom: 1px solid black;">17.12.2020</td>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="5">Ausbildungsjahr 2020</td>
+                <td colspan="5">Ausbildungsjahr <?= FrontendUtils::getUserEducationStartDate() ?></td>
             </tr>
         </table>
 

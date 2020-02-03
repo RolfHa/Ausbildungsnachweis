@@ -78,6 +78,9 @@ $data = [
 //$data = Department::getAllAsArray();
 
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update') {
+    echo "<pre>";
+    print_r($_REQUEST);
+    echo "</pre>";
     $data = $_REQUEST['data'];
 }
 
