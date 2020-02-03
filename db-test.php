@@ -4,7 +4,7 @@ spl_autoload_register(function ($class) {
     include 'class/' . $class . '.php';
 });
 
-Department::getAll();
+var_dump(User::getByFirstName('Doe'));
 
 
 

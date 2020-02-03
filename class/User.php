@@ -70,15 +70,19 @@ class User implements Saveable
     {
     }
 
-    static function getByLastName($lastName)
+    static function getByFirstName($lastName)
     {
         try {
             $pdo = Db::connect();
-            $stmt = $pdo->prepare("SELECT * FROM user WHERE lastName = ?");
+            $stmt = $pdo->prepare("SELECT * FROM user WHERE firstName = ?");
             $stmt->execute([$lastName]);
-            return $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo')[0];
+            $result = $stmt->fetchAll(PDO::FETCH_FUNC, 'User::buildFromPdo');
 
+            if (count($result) > 0) {
+                return $result[0];
+            }
 
+            return null;
         } catch (Exception $e) {
         }
     }
