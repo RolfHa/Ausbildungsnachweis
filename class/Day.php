@@ -65,7 +65,7 @@ class Day implements Saveable
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getHours()
     {
@@ -93,49 +93,23 @@ class Day implements Saveable
         if ($this->getId() == null) {
             try {
                 $pdo = Db::connect();
-                $sql = "INSERT INTO day(id, user_id, date_of_day, description, hours, totalHours, modul_id) VALUES(NULL, :user_id, :date_of_day, :description, :hours, :totalHours, :modul_id)";
+                $sql = "INSERT INTO day(id, user_id, date_of_day, description, hours, totalHours, modul_id) VALUES(NULL, ?, ?, ?, ?, ?, ?)";
                 $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-                $stmt->bindParam(':date_of_day', $this->date_of_day, PDO::PARAM_STR);
-                $stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
-                $stmt->bindParam(':hours', $this->hours, PDO::PARAM_INT);
-                $stmt->bindParam(':totalHours', $this->totalHours, PDO::PARAM_INT);
-                $stmt->bindParam(':modul_id', $this->modul_id, PDO::PARAM_INT);
-
-                $result = $stmt->execute();
+                $result = $stmt->execute([$this->user_id, $this->date_of_day, $this->description, $this->hours, $this->totalHours, $this->modul_id]);
             } catch (Exception $e) {
             }
         } else {
             try {
                 $pdo = Db::connect();
-                $sql = "UPDATE day SET description=:description, hours=:hours, totalHours=:totalHours, modul_id=:modul_id WHERE id=:id";
+                $sql = "UPDATE day SET description=?, hours=?, totalHours=?, modul_id=? WHERE id=?";
                 $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
-                $stmt->bindParam(':hours', $this->hours, PDO::PARAM_INT);
-                $stmt->bindParam(':totalHours', $this->totalHours, PDO::PARAM_INT);
-                $stmt->bindParam(':modul_id', $this->modul_id, PDO::PARAM_INT);
-                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-                $result = $stmt->execute();
+                $result = $stmt->execute([$this->description, $this->hours, $this->totalHours, $this->modul_id, $this->id]);
+
             } catch (Exception $e) {
             }
         }
         return $result;
     }
-
-    /*
-    static function getAll()
-    {
-        try {
-            $pdo = Db::connect();
-            $sql = "SELECT * FROM day";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Day::buildFromPdo');
-
-        } catch (Exception $e) {
-        }
-    }
-    */
 
     static function getById($id)
     {
