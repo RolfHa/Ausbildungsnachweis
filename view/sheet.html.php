@@ -11,8 +11,8 @@
 
 <form id="sheetForm" action="?" method="post">
     <input type="hidden" name="action" value="update">
-    <input type="hidden" name="data[document][userId]" value="<?= FrontendUtils::getUserId() ?>">
-    <input type="hidden" name="data[document][start]" value="<?= FrontendUtils::getUserEducationStartDate() ?>">
+    <input type="hidden" name="data[user][id]" value="<?= FrontendUtils::getUserId() ?>">
+    <input type="hidden" name="currentWeekDate" value="<?= $currentWeek ?>">
 
     <div style="width: 700px; margin: 0 auto;">
 
@@ -33,14 +33,14 @@
             </tr>
             <tr>
                 <td><strong>Ausbildungnachweis Nr:</strong></td>
-                <td style="border-bottom: 1px solid black;"><?= FrontendUtils::getUserSheetNumber() ?></td>
+                <td style="border-bottom: 1px solid black;"><?= FrontendUtils::getUserSheetNumber($currentWeek) ?></td>
                 <td colspan="2">Für die Woche vom</td>
-                <td style="border-bottom: 1px solid black;">10.12.2020</td>
+                <td style="border-bottom: 1px solid black;"><?= FrontendUtils::getWeekStartDate($currentWeek) ?></td>
                 <td>bis</td>
-                <td style="border-bottom: 1px solid black;">17.12.2020</td>
+                <td style="border-bottom: 1px solid black;"><?= FrontendUtils::getWeekEndDate($currentWeek) ?></td>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="5">Ausbildungsjahr <?= FrontendUtils::getUserEducationStartDate() ?></td>
+                <td colspan="5">Ausbildungsjahr: <?= FrontendUtils::getUserEducationYear($currentWeek) ?></td>
             </tr>
         </table>
 
@@ -54,27 +54,31 @@
             </tr>
 
             <?php for ($i = 0; $i < count($data['sheet']); $i++) : ?>
-                <input type="hidden" name="data[sheet][<?= $i ?>][id]" value="">
-                <input type="hidden" name="data[sheet][<?= $i ?>][date]" value="">
+                <input type="hidden" name="data[sheet][<?= $i ?>][id]" value="<?= $data['sheet'][$i]['id'] ?>">
+                <input type="hidden" name="data[sheet][<?= $i ?>][dateOfDay]" value="<?= $data['sheet'][$i]['dateOfDay'] ?>">
                 <tr data-day-id="<?= $i+1 ?>" class="section">
                     <td rowspan="6" class="labelWrapper">
                         <div class="label"><?= FrontendUtils::getGermanDayName($i) ?></div>
-                        <textarea name="data[sheet][<?= $i ?>][description]" class="area area-description <?= ($data['sheet'][$i]['department'] == 0) ? 'marked':'' ?>"><?= $data['sheet'][$i]['description'] ?></textarea>
+                        <textarea name="data[sheet][<?= $i ?>][description]" class="area area-description <?= ($data['sheet'][$i]['modulId'] == 1) ? 'marked':'' ?>"><?= $data['sheet'][$i]['description'] ?></textarea>
                         <textarea name="data[sheet][<?= $i ?>][hours]" class="area area-hours"><?= $data['sheet'][$i]['hours'] ?></textarea>
-                        <select name="data[sheet][<?= $i ?>][department]" class="select-department no-print">
-                            <?php for ($k = 0; $k < count($departmentList); $k++) : ?>
-                                <option value="<?= $departmentList[$k]['id'] ?>" <?= ($data['sheet'][$i]['department'] == $departmentList[$k]['id']) ? 'selected="selected"' : '' ?>><?= $departmentList[$k]['name'] ?></option>
-                            <?php endfor; ?>
+                        <select name="data[sheet][<?= $i ?>][modulId]" class="select-department no-print">
+
+                            <?php /** @var Modul $modul */
+                            foreach($moduleList as $modul) : ?>
+                                <option value="<?= $modul->getId() ?>" <?= ($data['sheet'][$i]['modulId'] == $modul->getId()) ? 'selected="selected"' : '' ?>><?= $modul->getName() ?></option>
+                            <?php endforeach; ?>
+
                         </select>
-                        <?php for ($k = 0; $k < count($departmentList); $k++) : ?>
-                            <?php if($data['sheet'][$i]['department'] == $departmentList[$k]['id']) : ?>
-                                <div style="padding: 0 5px" class="select-department print"><?= $departmentList[$k]['name'] ?></div>
+                        <?php /** @var Modul $modul */
+                        foreach($moduleList as $modul) : ?>
+                            <?php if($data['sheet'][$i]['modulId'] == $modul->getId()) : ?>
+                                <div style="padding: 0 5px; line-height: 1.3;" class="select-department print"><?= $modul->getName() ?></div>
                             <?php endif; ?>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     </td>
                     <td><div class="line-spacer"></div></td>
                     <td><div class="line-spacer"></div></td>
-                    <td rowspan="5"><input name="data[sheet][<?= $i ?>][total_hours]" class="totalHours" type="number" value="<?= $data['sheet'][$i]['total_hours'] ?>"></td>
+                    <td rowspan="5"><div class="totalHours"><?= $data['sheet'][$i]['totalHours'] ?></div></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -121,7 +125,9 @@
                         <tr style="border-top:2px solid black;">
                             <td width="54%" style="padding-bottom: 15px; position: relative;">
                                 <strong>Besondere Bemerkungen</strong> Auszubildender
-                                <input id="notice" style="position: absolute;top: 17px;left: 0;" type="text" name="data[document][notice]" value="<?= $data['document']['notice'] ?>">
+                                <input type="hidden" name="data[notice][id]" value="<?= $data['notice']['id'] ?>">
+                                <input type="hidden" name="data[notice][noticeDate]" value="<?= $data['notice']['noticeDate'] ?>">
+                                <input id="notice" style="position: absolute;top: 17px;left: 0;" type="text" name="data[notice][notice]" value="<?= $data['notice']['notice'] ?>">
                             </td>
                             <td width="46%" style="padding-bottom: 15px">Ausbildender bzw. Ausbilder</td>
                         </tr>
