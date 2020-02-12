@@ -92,20 +92,58 @@ class FrontendUtils
     }
 
     /**
-     * @return int
+     * @param string $currentWeek
+     * @return false|string
      */
-    static function getUserSheetNumber()
+    static function getUserEducationYear($currentWeek)
     {
         /** @var User $u */
         $u = self::getUserObjFromSession();
         if ($u instanceof User) {
-            $today = date_create();
+            $current = date_create($currentWeek);
             $start = date_create($u->getEducationStartDate());
-            $interval = $today->diff($start);
+            $interval = $current->diff($start);
 
-            return floor(intval($interval->format('%a')) / 7);
+            return ceil(intval($interval->format('%a')) / 365);
+        }
+
+        return '';
+    }
+
+    /**
+     * @param string $currentWeek
+     * @return false|float|int
+     */
+    static function getUserSheetNumber($currentWeek)
+    {
+        /** @var User $u */
+        $u = self::getUserObjFromSession();
+        if ($u instanceof User) {
+            $current = date_create($currentWeek);
+            $start = date_create($u->getEducationStartDate());
+            $interval = $current->diff($start);
+
+            return floor(intval($interval->format('%a')) / 7) + 1;
         }
 
         return -1;
+    }
+
+    /**
+     * @param string $currentWeek
+     * @return false|string
+     */
+    static function getWeekStartDate($currentWeek)
+    {
+        return date('d.m.Y', strtotime($currentWeek));
+    }
+
+    /**
+     * @param string $currentWeek
+     * @return false|string
+     */
+    static function getWeekEndDate($currentWeek)
+    {
+        return date('d.m.Y', strtotime($currentWeek . ' +6 days'));
     }
 }
