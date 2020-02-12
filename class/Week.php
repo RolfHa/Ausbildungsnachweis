@@ -3,7 +3,12 @@
 
 class Week
 {
-    function getWeek($sqlDate, $user_id) //Datum kommt als yyy-mm-dd String
+    /**
+     * @param string $sqlDate
+     * @param int $user_id
+     * @return array
+     */
+    static function getWeek($sqlDate, $user_id) //Datum kommt als yyy-mm-dd String
     {
         try {
             $sheet = [];
@@ -59,16 +64,46 @@ class Week
                 $emptyNotice->save();
                 $notice = $emptyNotice;
             }
-            $document = ToReflect::entity2array($notice);
-            $data = [];
-            $data[0] = $document;
-            $data[1] = $sheet;
+
+            $data = [
+                'notice' => ToReflect::entity2array($notice),
+                'sheet' => $sheet
+            ];
 
         } catch
         (Exception $e) {
         }
-        var_dump($data);
         return $data;
     }
 
+    /**
+     * @param array $data
+     */
+    static function saveWeek($data)
+    {
+        $userId = $data['user']['id'];
+
+        // save notice
+        $notice = new Notice($data['notice']['id'], $userId, $data['notice']['noticeDate'], $data['notice']['notice']);
+        $notice->save();
+
+        // save days
+        foreach ($data['sheet'] as $dayData) {
+            /** @var Day $day */
+
+            $totalHours = 0;
+            if (preg_match_all('/[0-9]*\.?,?[0-9]+/i', $dayData['hours'], $matches)) {
+
+                if (is_array($matches[0]) && count($matches[0]) > 0) {
+                    foreach ($matches[0] as $hour) {
+                        $hour = str_replace(",", ".",$hour);
+                        $totalHours += (float)$hour;
+                    }
+                }
+            }
+
+            $day = new Day($dayData['id'], $userId, $dayData['dateOfDay'], $dayData['description'], $dayData['hours'], $totalHours, $dayData['modulId']);
+            $day->save();
+        }
+    }
 }
