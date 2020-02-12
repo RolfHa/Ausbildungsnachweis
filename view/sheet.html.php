@@ -1,8 +1,11 @@
 <nav id="main" class="no-print">
-    <button>Vorherige Woche</button>
-    <label for="fieldWeek">Woche vom:</label>
-    <input id="fieldWeek" type="date" name="week" value="<?= date('Y-m-d') ?>">
-    <button>Nächste Woche</button>
+    <form id="datePicker" action="?" method="get">
+        <input id="dateField" type="hidden" name="date" value="<?= $currentWeek ?>">
+    </form>
+    <button onclick="App.goto('<?= $previousWeek ?>');">Vorherige Woche</button>
+    <label for="datePickerCalendar">Woche vom:</label>
+    <input id="datePickerCalendar" type="date" name="date" value="<?= $currentWeek ?>">
+    <button onclick="App.goto('<?= $nextWeek ?>');">Nächste Woche</button>
     <button onclick="App.logout();">Logout</button>
 </nav>
 

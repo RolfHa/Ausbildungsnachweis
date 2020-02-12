@@ -84,4 +84,21 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update') {
     $data = $_REQUEST['data'];
 }
 
+
+
+// Navigation Paging
+
+$dateOfWeek = false;
+if(isset($_GET['date'])) {
+    $dateOfWeek = strtotime($_GET['date']);
+}
+
+if($dateOfWeek === false) {
+    $dateOfWeek = time();
+}
+$currentWeekTs = strtotime("monday this week", $dateOfWeek);
+$currentWeek = date('Y-m-d', $currentWeekTs);
+$previousWeek = date('Y-m-d', strtotime("last monday", $currentWeekTs));
+$nextWeek = date('Y-m-d', strtotime("next monday", $currentWeekTs));
+
 include "view/sheet.html.php";
