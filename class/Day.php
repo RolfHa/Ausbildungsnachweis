@@ -96,6 +96,7 @@ class Day implements Saveable
                 $sql = "INSERT INTO day(id, user_id, date_of_day, description, hours, totalHours, modul_id) VALUES(NULL, ?, ?, ?, ?, ?, ?)";
                 $stmt = $pdo->prepare($sql);
                 $result = $stmt->execute([$this->user_id, $this->date_of_day, $this->description, $this->hours, $this->totalHours, $this->modul_id]);
+                $this->id = $pdo->lastInsertId();
             } catch (Exception $e) {
             }
         } else {
