@@ -12,7 +12,7 @@ const App = {
         const inputs = document.querySelectorAll(['input[type=number]', 'input[type=text]', 'textarea', 'select']);
         const sheetForm = document.getElementById('sheetForm');
         const overallHours = document.getElementById('overallHours');
-        const totalHoursInputList = document.querySelectorAll('input.totalHours');
+        const totalHoursDivList = document.querySelectorAll('div.totalHours');
         const datePickerCalendar = document.getElementById('datePickerCalendar');
 
         inputs.forEach((element) => {
@@ -26,10 +26,10 @@ const App = {
 
         // calculate overall hours
         let hours = 0;
-        totalHoursInputList.forEach((element) => {
-            let val = element.value;
+        totalHoursDivList.forEach((element) => {
+            let val = element.textContent;
             if (val !== '') {
-                hours += parseInt(val);
+                hours += parseFloat(val);
             }
         });
 
