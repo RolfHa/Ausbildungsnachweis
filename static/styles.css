@@ -58,7 +58,7 @@ input[type="number"],
     height: 12px;
 }
 
-input.totalHours {
+.totalHours {
     font-size: 30px;
     text-align: center;
     width: 80px;
