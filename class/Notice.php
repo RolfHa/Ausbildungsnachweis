@@ -84,7 +84,7 @@ class Notice implements Saveable
         return $result;
     }
 
-    static function getAllAsArray()
+    /*static function getAllAsArray()
     {
         try {
             $pdo = Db::connect();
@@ -94,9 +94,9 @@ class Notice implements Saveable
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
         }
-    }
+    }*/
 
-    static function getByIdAsArray($id)
+    /*static function getByIdAsArray($id)
     {
         try {
             $pdo = Db::connect();
@@ -106,6 +106,15 @@ class Notice implements Saveable
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
         }
+    }*/
+
+    static function getById($id)
+    {
+        // TODO: Implement getById() method.
     }
 
+    public static function buildFromPdo($id, $user_id, $notice_date, $notice)
+    {
+        return new Notice($id, $user_id, $notice_date, $notice);
+    }
 }

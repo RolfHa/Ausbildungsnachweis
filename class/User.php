@@ -66,10 +66,6 @@ class User implements Saveable
         return $this->education_start_date;
     }
 
-    function save()
-    {
-    }
-
     static function getByFirstName($lastName)
     {
         try {
@@ -86,7 +82,6 @@ class User implements Saveable
         } catch (Exception $e) {
         }
     }
-
 
     static function getAll()
     {

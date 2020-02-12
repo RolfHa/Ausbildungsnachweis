@@ -1,14 +1,14 @@
 <?php
 
 
-class Department implements Saveable
+class Modul implements Saveable
 {
 
     private $id; //PK
     private $name;
 
     /**
-     * Department constructor.
+     * Modul constructor.
      * @param $id
      * @param $name
      */
@@ -42,10 +42,10 @@ class Department implements Saveable
     {
         try {
             $pdo = Db::connect();
-            $sql = "SELECT * FROM department ORDER  BY name REGEXP '^[a-z]' DESC , name "; //ABWESEND am Ende
+            $sql = "SELECT * FROM modul ORDER  BY name REGEXP '^[a-z]' DESC , name "; //ABWESEND am Ende
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo');
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Modul::buildFromPdo');
         } catch (Exception $e) {
         }
     }
@@ -54,16 +54,16 @@ class Department implements Saveable
     {
         try {
             $pdo = Db::connect();
-            $stmt = $pdo->prepare("SELECT * FROM department WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT * FROM modul WHERE id = ?");
             $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Department::buildFromPdo')[0];
+            return $stmt->fetchAll(PDO::FETCH_FUNC, 'Modul::buildFromPdo')[0];
         } catch (Exception $e) {
         }
     }
 
     public static function buildFromPdo($id, $name)
     {
-        return new Department($id, $name);
+        return new Modul($id, $name);
     }
 
 
